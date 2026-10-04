@@ -42,9 +42,17 @@ end
 
 local function pickCard(setId: string?, rarity: string): string
 	if not setId then
-		setId = Cards.Sets[rng:NextInteger(1, #Cards.Sets)].id
+		-- Multi-set packs: pick a set that actually has this rarity.
+		local candidates = {}
+		for _, set in Cards.Sets do
+			if Cards.BySetRarity[set.id][rarity] then
+				table.insert(candidates, set.id)
+			end
+		end
+		setId = if #candidates > 0 then candidates[rng:NextInteger(1, #candidates)] else Cards.Sets[1].id
 	end
-	local pool = Cards.BySetRarity[setId][rarity] or Cards.BySetRarity[setId].Common
+	local byRarity = Cards.BySetRarity[setId :: string]
+	local pool = byRarity[rarity] or byRarity.Common or byRarity.Rare
 	return pool[rng:NextInteger(1, #pool)]
 end
 

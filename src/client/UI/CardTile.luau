@@ -75,7 +75,7 @@ function CardTile.new(card, options: { onClick: (() -> ())?, showPrice: boolean?
 
 	-- Card art: set-coloured panel with the creature's initial.
 	local art = Util.frame({
-		BackgroundColor3 = set.color,
+		BackgroundColor3 = Cards.TypeColors[def.type] or set.color,
 		Position = UDim2.fromOffset(8, 26),
 		Size = UDim2.new(1, -16, 0, 78),
 		Parent = tile,
@@ -101,9 +101,11 @@ function CardTile.new(card, options: { onClick: (() -> ())?, showPrice: boolean?
 	end
 
 	Util.label({
-		Text = rarity.name,
+		Text = def.rarityLabel or rarity.name,
 		Font = Theme.FontBold,
 		TextSize = 11,
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		TextWrapped = false,
 		TextColor3 = rarity.color,
 		Position = UDim2.fromOffset(8, 108),
 		Size = UDim2.new(1, -16, 0, 14),

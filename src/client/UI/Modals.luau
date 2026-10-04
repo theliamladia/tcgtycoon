@@ -131,7 +131,7 @@ function Modals.card(card)
 
 	Util.label({
 		LayoutOrder = 1,
-		Text = `{set.name} · <font color="#{rarity.color:ToHex()}">{rarity.name}</font>`,
+		Text = `{set.name} #{def.number or "?"} · <font color="#{rarity.color:ToHex()}">{def.rarityLabel or rarity.name}</font>`,
 		RichText = true,
 		TextColor3 = Theme.SubText,
 		Parent = info,

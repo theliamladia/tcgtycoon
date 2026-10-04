@@ -1,7 +1,26 @@
 -- Card sets, rarities and base market values.
 -- `value` is the market price of a raw Near Mint copy before trends.
+-- `rarity` is one of the six game tiers below; `rarityLabel` is the
+-- printed rarity (e.g. "Special Illustration Rare").
 
 local Cards = {}
+
+-- Art colours by Pokémon type (supertype for Trainers/Energy).
+Cards.TypeColors = {
+	Fire = Color3.fromRGB(240, 110, 60),
+	Water = Color3.fromRGB(70, 150, 240),
+	Grass = Color3.fromRGB(90, 190, 90),
+	Lightning = Color3.fromRGB(245, 205, 50),
+	Psychic = Color3.fromRGB(170, 100, 210),
+	Fighting = Color3.fromRGB(190, 110, 60),
+	Darkness = Color3.fromRGB(60, 70, 90),
+	Metal = Color3.fromRGB(150, 160, 175),
+	Dragon = Color3.fromRGB(190, 160, 60),
+	Fairy = Color3.fromRGB(240, 130, 190),
+	Colorless = Color3.fromRGB(200, 200, 200),
+	Trainer = Color3.fromRGB(120, 130, 150),
+	Energy = Color3.fromRGB(110, 120, 140),
+}
 
 Cards.RarityOrder = { "Common", "Uncommon", "Rare", "HoloRare", "UltraRare", "SecretRare" }
 
@@ -14,71 +33,8 @@ Cards.Rarities = {
 	SecretRare = { name = "Secret Rare", order = 6, color = Color3.fromRGB(255, 72, 120) },
 }
 
-Cards.Sets = {
-	{
-		id = "genesis",
-		name = "Genesis",
-		color = Color3.fromRGB(232, 98, 52),
-		cards = {
-			{ id = "gen_emberpup", name = "Emberpup", rarity = "Common", value = 0.15 },
-			{ id = "gen_pebblet", name = "Pebblet", rarity = "Common", value = 0.12 },
-			{ id = "gen_driftfin", name = "Driftfin", rarity = "Common", value = 0.14 },
-			{ id = "gen_sproutling", name = "Sproutling", rarity = "Common", value = 0.12 },
-			{ id = "gen_zapkit", name = "Zapkit", rarity = "Common", value = 0.18 },
-			{ id = "gen_mossback", name = "Mossback", rarity = "Uncommon", value = 0.35 },
-			{ id = "gen_cindertail", name = "Cindertail", rarity = "Uncommon", value = 0.45 },
-			{ id = "gen_tidecaller", name = "Tidecaller", rarity = "Uncommon", value = 0.40 },
-			{ id = "gen_voltwing", name = "Voltwing", rarity = "Rare", value = 1.50 },
-			{ id = "gen_stonejaw", name = "Stonejaw", rarity = "Rare", value = 1.25 },
-			{ id = "gen_blazewyrm", name = "Blazewyrm", rarity = "HoloRare", value = 8 },
-			{ id = "gen_leviathorn", name = "Leviathorn", rarity = "HoloRare", value = 6.5 },
-			{ id = "gen_thunderox", name = "Thunderox", rarity = "UltraRare", value = 40 },
-			{ id = "gen_dragon", name = "Genesis Dragon", rarity = "SecretRare", value = 250 },
-		},
-	},
-	{
-		id = "shadowrift",
-		name = "Shadow Rift",
-		color = Color3.fromRGB(122, 74, 214),
-		cards = {
-			{ id = "sr_gloomrat", name = "Gloomrat", rarity = "Common", value = 0.40 },
-			{ id = "sr_duskmoth", name = "Duskmoth", rarity = "Common", value = 0.35 },
-			{ id = "sr_hexling", name = "Hexling", rarity = "Common", value = 0.45 },
-			{ id = "sr_shadepup", name = "Shadepup", rarity = "Common", value = 0.50 },
-			{ id = "sr_murkfish", name = "Murkfish", rarity = "Common", value = 0.35 },
-			{ id = "sr_wraithhound", name = "Wraithhound", rarity = "Uncommon", value = 1.10 },
-			{ id = "sr_nightbloom", name = "Nightbloom", rarity = "Uncommon", value = 1.25 },
-			{ id = "sr_cryptkeeper", name = "Cryptkeeper", rarity = "Uncommon", value = 1.40 },
-			{ id = "sr_voidstalker", name = "Voidstalker", rarity = "Rare", value = 4.50 },
-			{ id = "sr_eclipseowl", name = "Eclipse Owl", rarity = "Rare", value = 4 },
-			{ id = "sr_phantomking", name = "Phantom King", rarity = "HoloRare", value = 24 },
-			{ id = "sr_abyssserpent", name = "Abyss Serpent", rarity = "HoloRare", value = 20 },
-			{ id = "sr_rifttitan", name = "Rift Titan", rarity = "UltraRare", value = 120 },
-			{ id = "sr_umbraempress", name = "Umbra Empress", rarity = "SecretRare", value = 750 },
-		},
-	},
-	{
-		id = "celestial",
-		name = "Celestial Crown",
-		color = Color3.fromRGB(46, 170, 230),
-		cards = {
-			{ id = "cc_starling", name = "Starling", rarity = "Common", value = 1.00 },
-			{ id = "cc_cometcub", name = "Comet Cub", rarity = "Common", value = 0.90 },
-			{ id = "cc_lunarhare", name = "Lunar Hare", rarity = "Common", value = 1.10 },
-			{ id = "cc_nebulafox", name = "Nebula Fox", rarity = "Common", value = 1.25 },
-			{ id = "cc_sunpetal", name = "Sunpetal", rarity = "Common", value = 0.90 },
-			{ id = "cc_aurorastag", name = "Aurora Stag", rarity = "Uncommon", value = 2.75 },
-			{ id = "cc_meteorgolem", name = "Meteorite Golem", rarity = "Uncommon", value = 3 },
-			{ id = "cc_orbitjelly", name = "Orbit Jelly", rarity = "Uncommon", value = 3.50 },
-			{ id = "cc_solarlion", name = "Solar Lion", rarity = "Rare", value = 11 },
-			{ id = "cc_galaxywhale", name = "Galaxy Whale", rarity = "Rare", value = 10 },
-			{ id = "cc_astralphoenix", name = "Astral Phoenix", rarity = "HoloRare", value = 60 },
-			{ id = "cc_cosmicseraph", name = "Cosmic Seraph", rarity = "HoloRare", value = 50 },
-			{ id = "cc_sovereign", name = "Celestial Sovereign", rarity = "UltraRare", value = 300 },
-			{ id = "cc_eternity", name = "Crown of Eternity", rarity = "SecretRare", value = 1900 },
-		},
-	},
-}
+-- Real card sets, generated by tools/import_cards.py.
+Cards.Sets = require(script.Parent:WaitForChild("CardData")).sets
 
 -- Lookup tables built from the definitions above.
 Cards.ById = {}

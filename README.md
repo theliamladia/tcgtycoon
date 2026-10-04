@@ -5,8 +5,10 @@ for grading, and sell them through your store, online, and at card shows.
 
 ## Gameplay
 
-- **Packs** – Buy boosters from three sets plus a high-end Mystery Vault pack.
-  The last card is always Rare or better. Better packs unlock with reputation.
+- **Packs** – Buy 10-card boosters from real Pokémon TCG sets (Base, Jungle,
+  151, Prismatic Evolutions, Destined Rivals) plus a high-end Mystery Vault
+  pack. The last card is always Rare or better. Better packs unlock with
+  reputation.
 - **Collection** – Every card has a hidden condition (Mint → Damaged) that
   affects its value. Filter, sort, inspect, list, or quick-sell to the dealer
   at 50%.
@@ -44,6 +46,27 @@ src/client/          StarterPlayerScripts.Client
 The server is authoritative: the client only calls actions through a single
 `Remotes.Action` RemoteFunction, and the server pushes the full player state
 back through `Remotes.Sync`.
+
+## Card data
+
+Cards and packs live in the generated `src/shared/Config/CardData.luau`. To
+change sets or refresh prices, run the importer (Python 3, no packages needed):
+
+```
+python3 tools/import_cards.py                          # live prices from the Pokémon TCG API
+python3 tools/import_cards.py --sets base1,base3,sv3pt5 # choose sets by API set id
+python3 tools/import_cards.py --source github           # offline dataset, estimated prices
+```
+
+Set ids are listed at https://api.pokemontcg.io/v2/sets. Pack prices and
+reputation unlocks are calculated from each set's card values. Set
+`POKEMONTCG_API_KEY` for higher rate limits.
+
+The committed data came from the GitHub dataset, so prices are estimates until
+the importer is run against the live API.
+
+Pokémon names and card data belong to Nintendo / The Pokémon Company. Keep this
+build private; Roblox will moderate a published game that uses them.
 
 ## Running it
 

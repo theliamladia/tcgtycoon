@@ -3,7 +3,7 @@
 local Economy = {}
 
 Economy.StartingCash = 50
-Economy.MaxCards = 400
+Economy.MaxCards = 800
 Economy.MinPrice = 0.01
 Economy.MaxPrice = 10_000_000
 

@@ -8,6 +8,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 
+local Cards = require(ReplicatedStorage.Shared.Config.Cards)
 local Economy = require(ReplicatedStorage.Shared.Config.Economy)
 local Remotes = require(script.Parent.Remotes)
 
@@ -63,9 +64,14 @@ local function reconcile(data, template)
 	end
 end
 
--- Shows don't survive a server hop: bring those cards home.
+-- Shows don't survive a server hop: bring those cards home. Cards from
+-- sets that were removed from the game are dropped.
 local function normalize(data)
-	for _, card in data.cards do
+	for uid, card in data.cards do
+		if not Cards.ById[card.cardId] then
+			data.cards[uid] = nil
+			continue
+		end
 		if card.location == "show" then
 			card.location = "inventory"
 			card.price = nil
